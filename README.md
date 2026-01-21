@@ -6,7 +6,7 @@ This project serves as a template for Spring Boot 4 applications. It provides a 
 ## Prerequisites
 - GitHub account
 - Git
-- JDK 21 or later
+- JDK 25 or later
 - Maven
 - IntelliJ IDEA (recommended) or any preferred IDE
 - Docker account (for image publishing)
