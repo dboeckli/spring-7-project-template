@@ -4,7 +4,7 @@ server:
 spring:
   application:
     # // TODO: RENAME ME
-    name: spring-6-project-template
+    name: spring-7-project-template
   docker:
     compose:
       enabled: false

@@ -13,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest(useMainMethod = SpringBootTest.UseMainMethod.ALWAYS)
 @Slf4j
 @ActiveProfiles("local")
-// TODOS: RENAME ME
-class Spring6TemplateApplicationIT {
+class Spring7TemplateApplicationIT {
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -22,7 +21,7 @@ class Spring6TemplateApplicationIT {
     @Test
     void contextLoads() {
         assertNotNull(applicationContext, "Application context should not be null");
-        log.info("Testing Spring 6 Application {}", applicationContext.getApplicationName());
+        log.info("Testing Spring 7 Application {}", applicationContext.getApplicationName());
     }
 
 }

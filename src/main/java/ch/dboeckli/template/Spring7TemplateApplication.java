@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 // TODOS: RENAME ME
-public class Spring6TemplateApplication {
+public class Spring7TemplateApplication {
 
     public static void main(String[] args) {
         log.info("Starting Spring 6 Template Application...");
-        SpringApplication.run(Spring6TemplateApplication.class, args);
+        SpringApplication.run(Spring7TemplateApplication.class, args);
     }
 
     @RequestMapping(path = "/hello", produces = "application/json")

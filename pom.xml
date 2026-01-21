@@ -13,7 +13,7 @@
     <!-- TODO: RENAME ME -->
     <groupId>ch.dboeckli.template</groupId>
     <!-- TODO: RENAME ME -->
-    <artifactId>spring-6-project-template</artifactId>
+    <artifactId>spring-7-project-template</artifactId>
     <version>0.0.13-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
@@ -45,7 +45,7 @@
         <docker.repo>local</docker.repo>
 
         <!-- our dependencies -->
-        <spring-6-rest-mvc-api.version>0.0.1-SNAPSHOT</spring-6-rest-mvc-api.version>
+        <spring-7-rest-mvc-api.version>0.0.1-SNAPSHOT</spring-7-rest-mvc-api.version>
 
         <logstash-logback.version>9.0</logstash-logback.version>
 
