@@ -9,11 +9,12 @@ import nl.altindag.log.model.LogEvent;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.micrometer.metrics.test.autoconfigure.AutoConfigureMetrics;
+import org.springframework.boot.resttestclient.TestRestTemplate;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
@@ -29,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.*;
     properties = "logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter=DEBUG"
 )
 @AutoConfigureMockMvc
-@AutoConfigureObservability
+@AutoConfigureMetrics
+@AutoConfigureTestRestTemplate
 @Slf4j
 @ActiveProfiles("local")
 public class LoggingWithTracingTest {
@@ -38,13 +40,13 @@ public class LoggingWithTracingTest {
     int port;
 
     @Autowired
-    TestRestTemplate restTemplate;
+    TestRestTemplate testRestTemplate;
 
     @Test
     void actuator_info_logsMessage() {
         try (LogCaptor logCaptor = LogCaptor.forClass(CommonsRequestLoggingFilter.class)) {
             String url = "http://localhost:" + port + "/actuator/info";
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            ResponseEntity<String> response = testRestTemplate.getForEntity(url, String.class);
 
             List<LogEvent> logEvents = logCaptor.getLogEvents();
 
@@ -80,7 +82,7 @@ public class LoggingWithTracingTest {
         logger.addAppender(listAppender);
 
         String url = "http://localhost:" + port + "/actuator/info";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        ResponseEntity<String> response = testRestTemplate.getForEntity(url, String.class);
         List<ILoggingEvent> logEvents = listAppender.list;
 
         assertAll(
@@ -116,7 +118,7 @@ public class LoggingWithTracingTest {
         logger.addAppender(listAppender);
 
         String url = "http://localhost:" + port + "/hello";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        ResponseEntity<String> response = testRestTemplate.getForEntity(url, String.class);
         List<ILoggingEvent> logEvents = listAppender.list;
 
         assertAll(
