@@ -56,7 +56,7 @@ jobs:
           REPSY_TOKEN: ${{ secrets.REPSY_TOKEN }}
         run: |
           required_vars=("DOCKER_USER" "CI_USER" "CI_USER_EMAIL")
-          required_secrets=("DOCKER_ACCESS_TOKEN" "SONAR_TOKEN" "TRIGGER_WORKFLOW_TOKEN" "RELEASE_TOKEN" "REPSY_TOKEN)
+          required_secrets=("DOCKER_ACCESS_TOKEN" "SONAR_TOKEN" "TRIGGER_WORKFLOW_TOKEN" "RELEASE_TOKEN" "REPSY_TOKEN")
           
           for param in "${required_vars[@]}"; do
             if [ -z "${!param}" ]; then
@@ -222,7 +222,7 @@ jobs:
           set -o errexit     # abort on nonzero exit status
           
           # Check if required parameters are set
-          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN" "REPSY_TOKEN)
+          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN" "REPSY_TOKEN")
           for param in "${required_params[@]}"; do
             if [ -z "${!param}" ]; then
               echo "::error::Required parameter $param is not set"
