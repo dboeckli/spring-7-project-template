@@ -37,9 +37,11 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
+          distribution: 'liberica'
           cache: 'maven'
-          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml.
+          server-id: repsy # Value of the distributionManagement/repository/id field of the pom.xml.
+          server-username: REPSY_USERNAME
+          server-password: REPSY_TOKEN
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Verify Variables and Secrets
@@ -51,9 +53,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           TRIGGER_WORKFLOW_TOKEN: ${{ secrets.TRIGGER_WORKFLOW_TOKEN }}
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          REPSY_TOKEN: ${{ secrets.REPSY_TOKEN }}
         run: |
           required_vars=("DOCKER_USER" "CI_USER" "CI_USER_EMAIL")
-          required_secrets=("DOCKER_ACCESS_TOKEN" "SONAR_TOKEN" "TRIGGER_WORKFLOW_TOKEN" "RELEASE_TOKEN")
+          required_secrets=("DOCKER_ACCESS_TOKEN" "SONAR_TOKEN" "TRIGGER_WORKFLOW_TOKEN" "RELEASE_TOKEN" "REPSY_TOKEN")
           
           for param in "${required_vars[@]}"; do
             if [ -z "${!param}" ]; then
@@ -142,9 +145,11 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
+          distribution: 'liberica'
           cache: 'maven'
-          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml.
+          server-id: repsy # Value of the distributionManagement/repository/id field of the pom.xml.
+          server-username: REPSY_USERNAME
+          server-password: REPSY_TOKEN
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Create k8s Kind Cluster
@@ -209,13 +214,15 @@ jobs:
           BRANCH_NAME: ${{needs.setup.outputs.BRANCH_NAME}}
           DOCKER_USER: ${{ vars.DOCKER_USER }}
           DOCKER_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          REPSY_USERNAME: ${{ github.actor }}
+          REPSY_TOKEN: ${{ secrets.REPSY_TOKEN }}
         run: |
           set -o pipefail    # don't hide errors within pipes
           set -o nounset     # abort on unbound variable
           set -o errexit     # abort on nonzero exit status
           
           # Check if required parameters are set
-          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN")
+          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN" "REPSY_TOKEN")
           for param in "${required_params[@]}"; do
             if [ -z "${!param}" ]; then
               echo "::error::Required parameter $param is not set"
@@ -291,9 +298,11 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
+          distribution: 'liberica'
           cache: 'maven'
-          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml.
+          server-id: repsy # Value of the distributionManagement/repository/id field of the pom.xml.
+          server-username: REPSY_USERNAME
+          server-password: REPSY_TOKEN
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Create k8s Kind Cluster
@@ -307,13 +316,14 @@ jobs:
           BRANCH_NAME: ${{needs.setup.outputs.BRANCH_NAME}}
           DOCKER_USER: ${{ vars.DOCKER_USER }}
           DOCKER_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          REPSY_TOKEN: ${{ secrets.REPSY_TOKEN }}
         run: |
           set -o pipefail    # don't hide errors within pipes
           set -o nounset     # abort on unbound variable
           set -o errexit     # abort on nonzero exit status
 
           # Check if required parameters are set
-          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN")
+          required_params=("GITHUB_ACTOR" "GITHUB_TOKEN" "REPSY_TOKEN" )
           for param in "${required_params[@]}"; do
             if [ -z "${!param}" ]; then
               echo "::error::Required parameter $param is not set"
