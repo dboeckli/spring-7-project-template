@@ -106,7 +106,7 @@
             "datasourceTemplate": "custom.custom_java",
             "depNameTemplate": "java",
             "managerFilePatterns": [
-                "/^\\.github\\/workflows\\/(release|maven-build)\\.ya?ml$/"
+                "/^\\.github\\/workflows\\/(release|maven-build|deploy-and-test-cluster)\\.ya?ml$/"
             ],
             "matchStrings": [
                 "  JAVA_VERSION:[\\t ]*(?<currentValue>\\d+)"

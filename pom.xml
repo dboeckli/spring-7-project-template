@@ -134,10 +134,17 @@
 
     <distributionManagement>
         <repository>
+            <id>repsy</id>
+            <name>My Private Maven Repository on Repsy</name>
+            <url>https://repo.repsy.io/mvn/user08694146/maven-dboeckli</url>
+        </repository>
+        <!--
+        <repository>
             <id>github</id>
             <name>GitHub dboeckli Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/${project.organization.name}/${project.artifactId}</url>
         </repository>
+        -->
     </distributionManagement>
 
     <dependencies>
