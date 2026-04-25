@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 // TODOS: RENAME ME
 public class Spring7TemplateApplication {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         log.info("Starting Spring 6 Template Application...");
         SpringApplication.run(Spring7TemplateApplication.class, args);
     }
@@ -23,4 +23,5 @@ public class Spring7TemplateApplication {
         log.info("home() has been called");
         return "{\"message\":\"Hello World!\"}";
     }
+
 }
