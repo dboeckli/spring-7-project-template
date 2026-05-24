@@ -97,12 +97,12 @@
       <artifactId>logstash-logback-encoder</artifactId>
       <version>${logstash-logback.version}</version>
     </dependency>
-  <dependency>
+    <dependency>
       <groupId>co.elastic.logging</groupId>
       <artifactId>logback-ecs-encoder</artifactId>
       <version>${logback-ecs-encoder.version}</version>
       <scope>compile</scope>
-  </dependency>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -282,7 +282,7 @@
               <exclude>target/**</exclude>
               <exclude>**/node_modules/**</exclude>
               <exclude>.github/**</exclude>
-                <exclude>.idea</exclude>
+              <exclude>.idea</exclude>
             </excludes>
             <prettier/>
           </json>
