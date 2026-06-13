@@ -5,6 +5,12 @@ spring:
   application:
     # // TODO: RENAME ME
     name: spring-7-project-template
+  task:
+    execution:
+      propagate-context: true
+  threads:
+    virtual:
+      enabled: true
 
 management:
   health:
