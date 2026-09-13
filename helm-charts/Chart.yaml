@@ -2,7 +2,7 @@
 # and will be replaced with a valid version number during the build process.
 apiVersion: v2
 name: @project.artifactId@-chart
-description: A Helm chart for Spring 6 Projects
+description: A Helm chart for Spring 7 Projects
 type: application
 version: @helm.chart.version@
 appVersion: @helm.chart.version@

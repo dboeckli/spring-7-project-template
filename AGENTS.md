@@ -1,8 +1,8 @@
 # AGENTS.md
 
-Spring Boot 7 **project template** (Java 25) — a starting point for new Spring Boot projects with a
-pre-configured build/CI/deploy setup. Single Maven module, groupId `ch.dboeckli.template`, package
-`ch.dboeckli.template`. App on port `8080`.
+Spring Boot 4 (Spring Framework 7) **project template** (Java 25) — a starting point for new Spring
+Boot projects with a pre-configured build/CI/deploy setup. Single Maven module, groupId
+`ch.dboeckli.template`, package `ch.dboeckli.template`. App on port `8080`.
 
 ## Build & test commands
 

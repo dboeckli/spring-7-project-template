@@ -1,7 +1,7 @@
-= Spring Boot 7 Template Project
+= Spring 7 Template Project
 
 == Introduction
-This project serves as a template for Spring Boot 4 applications. It provides a solid foundation for quickly starting new Spring Boot projects with pre-configured settings and best practices.
+This project serves as a template for Spring 7 (Spring Boot 4) applications. It provides a solid foundation for quickly starting new Spring 7 projects with pre-configured settings and best practices.
 
 == Prerequisites
 * GitHub account
@@ -81,7 +81,7 @@ Apply the kit to an existing sandbox (restarts the sandbox, VM state is kept):
 sbx kit add <sandbox-name> "git+https://github.com/dboeckli/opencode-sandbox-kit.git#dir=opencode-agent"
 ----
 
-NOTE: Before any `./mvnw` in the sandbox run `export npm_config_bin_links=false` (Spotless/prettier otherwise fails with EPERM on the mounted workspace).
+NOTE: The sandbox kit already sets `npm_config_bin_links=false` globally, so no manual export is needed before `./mvnw` (Spotless/prettier would otherwise fail with EPERM on the mounted workspace).
 
 == Getting Started
 
@@ -102,15 +102,16 @@ NOTE: Before any `./mvnw` in the sandbox run `export npm_config_bin_links=false`
 === 3. Project Customization
 . Search for TODOs in the project and update the following:
 ** Rename `group-id` and `artifact-id` in `pom.xml`
-** Update `name` in `application.yaml`
+** Update `name` in `application-local.yaml`
 ** Ensure all names match your GitHub project name
 . Rename packages and classes as needed.
 
 === 4. GitHub Configuration
 . Add the following secrets in your GitHub project Action settings:
-** `DOCKER_USER`
 ** `DOCKER_ACCESS_TOKEN`
 ** `SONAR_TOKEN`: a Sonar Token generated in https://sonarcloud.io. Sonar Analysis Method: Automatic Analysis disabled.
+** `REPSY_TOKEN`: credentials for the Repsy Maven repository (dependency resolution and artifact deployment)
+** `TRIGGER_WORKFLOW_TOKEN`: a GitHub token used to trigger the `deploy-and-test-cluster.yml` workflow
 ** `RELEASE_TOKEN`: A GitHub Personal Access Token with permissions to push to the master branch
 ** To create this token:
 ... Go to GitHub Settings > Developer settings > Personal access tokens
@@ -121,16 +122,14 @@ NOTE: Before any `./mvnw` in the sandbox run `export npm_config_bin_links=false`
 ... Generate the token and copy it immediately
 ** Add this token as a secret named `RELEASE_TOKEN` in your repository settings
 . Add the following vars in your GitHub project Action settings:
-** CI_USER and set value to dboeckli@gmail.com
-** CI_USER_EMAIL set value to dboeckli@gmail.com
-. Add the following secrets in your GitHub project Dependent Bot settings:
-** `DOCKER_USER`
-** `DOCKER_ACCESS_TOKEN`
+** `DOCKER_USER` set value to your Docker Hub user name
+** `CI_USER` set value to the Git user name used for release commits (e.g., `dboeckli`)
+** `CI_USER_EMAIL` set value to the Git user email used for release commits (e.g., `dboeckli@gmail.com`)
 
 === 5. Build and Deployment
 . Trigger a rebuild in GitHub Actions.
 . Upon successful build:
-** A Docker image will be pushed to GitHub Packages and Docker Hub.
+** A Docker image will be pushed to the GitHub Container Registry (ghcr.io) and Docker Hub.
 ** Access your Docker Hub repository: https://hub.docker.com/repositories/domboeckli
 ** Change the Docker Hub image visibility from private to public to unlock it.
 
@@ -159,46 +158,11 @@ To create a new release:
 ** Confirm the new version in pom.xml on the main branch
 ** Verify the new Docker image on Docker Hub
 
-NOTE: Ensure all required secrets (RELEASE_TOKEN, DOCKER_USER, DOCKER_ACCESS_TOKEN) are properly set in your GitHub repository settings before running the release workflow.
-
-== Deployment with Kubernetes
-
-To run maven filtering for destination target/k8s
-
-[source,bash]
-----
-mvn clean install -DskipTests
-----
-
-Deployment goes into the default namespace.
-
-To deploy all resources:
-
-[source,bash]
-----
-kubectl apply -f target/k8s/
-----
-
-To remove all resources:
-
-[source,bash]
-----
-kubectl delete -f target/k8s/
-----
-
-Check
-
-[source,bash]
-----
-kubectl get deployments -o wide
-kubectl get pods -o wide
-----
-
-You can use the actuator rest call to verify via port 30080
+NOTE: Ensure all required secrets and vars (RELEASE_TOKEN, DOCKER_ACCESS_TOKEN, DOCKER_USER) are properly set in your GitHub repository settings before running the release workflow.
 
 == Deployment with Helm
 
-Be aware that we are using a different namespace here (not default).
+Be aware that the chart deploys into the namespace `spring-7-project-template` (not `default`).
 
 To run maven filtering for destination target/helm
 
