@@ -1,3 +1,6 @@
+nameOverride: "spring-7-project-template"
+fullnameOverride: "spring-7-project-template"
+
 global:
   timezone: Europe/Zurich
   timezonePath: /etc/localtime

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Spring7TemplateApplication {
 
     static void main(String[] args) {
-        log.info("Starting Spring 6 Template Application...");
+        log.info("Starting Spring 7 Template Application...");
         SpringApplication.run(Spring7TemplateApplication.class, args);
     }
 
