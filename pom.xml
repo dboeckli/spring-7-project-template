@@ -33,17 +33,10 @@
 
   <distributionManagement>
     <repository>
-      <id>repsy</id>
-      <name>My Private Maven Repository on Repsy</name>
-      <url>https://repo.repsy.io/mvn/user08694146/maven-dboeckli</url>
+      <id>github</id>
+      <name>GitHub dboeckli Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/${project.organization.name}/${project.artifactId}</url>
     </repository>
-    <!--
-        <repository>
-            <id>github</id>
-            <name>GitHub dboeckli Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/${project.organization.name}/${project.artifactId}</url>
-        </repository>
-        -->
   </distributionManagement>
 
   <properties>
@@ -62,9 +55,6 @@
     <docker.repo>local</docker.repo>
     <helm.snapshot.suffix>snapshot.${git.commit.id.abbrev}</helm.snapshot.suffix>
     <helm.executable>helm</helm.executable>
-
-    <!-- our dependencies -->
-    <spring-7-rest-mvc-api.version>0.0.1-SNAPSHOT</spring-7-rest-mvc-api.version>
 
     <logstash-logback.version>9.0</logstash-logback.version>
     <logback-ecs-encoder.version>1.8.0</logback-ecs-encoder.version>
@@ -177,14 +167,6 @@
     <repository>
       <id>central</id>
       <url>https://repo1.maven.org/maven2</url>
-    </repository>
-    <repository>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>repsy</id>
-      <name>My Private Maven Repository on Repsy</name>
-      <url>https://repo.repsy.io/mvn/user08694146/maven-dboeckli</url>
     </repository>
     <repository>
       <snapshots>
